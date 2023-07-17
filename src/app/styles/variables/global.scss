@@ -1,0 +1,26 @@
+:root {
+    --global-font-family: sans-serif;
+    --global-font-weight: 400;
+    --font-size-h1: 36px;
+    --font-size-h2: 28px;
+    --font-size-h3: 24px;
+    --font-size-h4: 20px;
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-extra-small: 12px;
+
+    --color-modal-overlay: rgba(12 31 49 / 49%);
+    --color-error: #f82929;
+
+    /* sizes */
+    --navbar-height: 64px;
+    --sidebar-width: 312px;
+
+    /* z indexes */
+    --z-content: 200;
+    --z-page: 300;
+    --z-sidebar: 400;
+    --z-footer: 500;
+    --z-header: 600;
+    --z-modal: 900;
+}
