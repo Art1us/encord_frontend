@@ -7,6 +7,7 @@ import { FilePondFile } from "filepond"
 import { useDispatch } from "react-redux"
 import { v4 as uuid } from "uuid"
 import { imagesPageActions } from "pages/ImagesPage"
+import { Alert } from "shared/ui/CustomNotifications"
 
 export function UploadImage() {
     const [isOpen, setIsOpen] = useState(false)
@@ -26,10 +27,14 @@ export function UploadImage() {
             }
         })
         dispatch(imagesPageActions.addImages(formattedImages))
+        Alert.success("Your image successfully uploaded")
+        setIsOpen(false)
+        setFiles([])
     }
 
     function discardClickHandler() {
         setIsOpen(false)
+        setFiles([])
     }
 
     return (

@@ -1,0 +1,37 @@
+.labelContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    max-width: fit-content;
+    height: 24px;
+    color: var(--color-white);
+}
+
+.red {
+    background-color: var(--color-accent);
+}
+
+.gray {
+    background-color: var(--color-dark-gray);
+}
+
+.attention {
+    background-color: var(--color-attention);
+}
+
+.fontNormal {
+    padding: 0 19px;
+
+    .content {
+        font-size: var(--font-size-base);
+    }
+}
+
+.fontSmall {
+    padding: 0 12px;
+
+    .content {
+        font-size: var(--font-size-extra-small);
+    }
+}

@@ -9,7 +9,7 @@ export function PredictionsTable() {
     return (
         <div className={styles.container}>
             {predictionsData.map(item => {
-                const { title, description, timestamp, id } = item
+                const { title, description, timestamp, id, predictions } = item
 
                 const hours = timestamp.getHours()
                 const minutes = timestamp.getMinutes()
@@ -20,7 +20,7 @@ export function PredictionsTable() {
                         <div>{title}</div>
                         <div>{description}</div>
                         <div>{`${hours}:${minutes}:${seconds}`}</div>
-                        <ViewPrediction id={id} />
+                        <ViewPrediction predictions={predictions} />
                     </div>
                 )
             })}
