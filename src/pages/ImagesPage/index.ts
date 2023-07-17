@@ -1,1 +1,5 @@
 export { ImagesPage } from "./ui/ImagesPage"
+export type { IUploadedImage } from "./model/types/types"
+export { imagesPageReducer } from "./model/slice/imagesPageSlice"
+export type { ImagesPageSchema } from "./model/types/imagesPageSchema"
+export { imagesPageActions } from "./model/slice/imagesPageSlice"

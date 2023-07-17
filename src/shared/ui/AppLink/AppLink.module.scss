@@ -1,0 +1,14 @@
+.AppLink {
+    font-size: var(--font-size-base);
+    color: var(--color-dark-gray);
+    text-decoration: none;
+
+    &.inverted {
+        color: var(--color-white);
+    }
+
+    &:hover {
+        color: var(--color-accent);
+        text-decoration: underline;
+    }
+}

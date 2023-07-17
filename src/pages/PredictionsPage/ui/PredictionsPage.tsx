@@ -1,3 +1,9 @@
+import { PredictionsTable } from "./PredictionsTable/PredictionsTable"
+
 export function PredictionsPage() {
-    return <div>Predictions Page</div>
+    return (
+        <div>
+            <PredictionsTable />
+        </div>
+    )
 }

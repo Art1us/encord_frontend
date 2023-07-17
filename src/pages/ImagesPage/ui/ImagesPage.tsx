@@ -1,15 +1,16 @@
-import { PredictImage } from "features/PredictImage"
 import { UploadImage } from "features/UploadImage"
+import { PredictImage } from "features/PredictImage"
 import { ViewPrediction } from "features/ViewPrediction"
-import { Table } from "shared/ui/Table/Table"
+import { ImagesTable } from "./ImagesTable/ImagesTable"
 
 export function ImagesPage() {
     return (
         <div>
             <UploadImage />
-            <Table />
+            <ImagesTable />
+            {/* 
             <PredictImage />
-            <ViewPrediction />
+            <ViewPrediction /> */}
         </div>
     )
 }

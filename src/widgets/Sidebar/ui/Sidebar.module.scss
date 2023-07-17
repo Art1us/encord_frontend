@@ -1,0 +1,9 @@
+.container {
+    border: 1px solid red;
+    width: var(--sidebar-width);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+}
