@@ -2,6 +2,18 @@
 @import "variables/global";
 @import "themes/normal";
 
+@font-face {
+    font-family: "Montserrat";
+    src: url("../../src/shared/assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+    font-display: swap;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: "Montserrat", sans-serif;
+    background-color: var(--color-bg);
+}
+
 .app {
     background: var(--color-bg);
     min-height: 100vh;

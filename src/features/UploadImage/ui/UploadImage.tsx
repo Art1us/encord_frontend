@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, ButtonColor, ButtonVariant } from "shared/ui/Button/Button"
+import { Button, ButtonColor } from "shared/ui/Button/Button"
 import { Modal } from "shared/ui/Modal"
 import { Filepond } from "./Filepond"
 import styles from "./UploadImage.module.scss"

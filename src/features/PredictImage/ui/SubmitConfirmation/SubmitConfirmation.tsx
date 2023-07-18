@@ -40,6 +40,7 @@ export function SubmitConfirmation(props: ISubmitConfirmationProps) {
             }
 
             dispatch(predictionsPageActions.addPrediction(newPrediction))
+            dispatch(predictionsPageActions.addUnviewedPredictions(1))
 
             Alert.success("Prediction successfully added")
         } catch (error) {

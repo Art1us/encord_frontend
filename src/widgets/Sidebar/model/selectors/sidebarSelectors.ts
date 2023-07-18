@@ -1,3 +1,4 @@
 import { StateSchema } from "app/providers/store"
 
-export const getPredictionsData = (state: StateSchema) => state.predictionsPage.images
+export const getUnviewedPredictions = (state: StateSchema) =>
+    state.predictionsPage.unviewedPredictions

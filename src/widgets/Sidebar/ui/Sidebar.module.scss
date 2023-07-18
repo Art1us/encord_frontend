@@ -1,9 +1,11 @@
 .container {
-    border: 1px solid red;
+    background-color: var(--color-accent);
     width: var(--sidebar-width);
+    padding: var(--navbar-height) 10px;
 }
 
 .links {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }

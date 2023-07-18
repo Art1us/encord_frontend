@@ -4,6 +4,7 @@ import { PredictionsPageSchema } from "../types/predictionsPageSchema"
 
 const initialState: PredictionsPageSchema = {
     images: [],
+    unviewedPredictions: 0,
 }
 
 const predictionsPageSLice = createSlice({
@@ -12,6 +13,12 @@ const predictionsPageSLice = createSlice({
     reducers: {
         addPrediction: (state, { payload }: PayloadAction<IPredictionImage>) => {
             state.images = [...state.images, payload]
+        },
+        addUnviewedPredictions: (state, { payload }: PayloadAction<number>) => {
+            state.unviewedPredictions = state.unviewedPredictions + payload
+        },
+        resetUnviewPredictions: state => {
+            state.unviewedPredictions = 0
         },
     },
 })

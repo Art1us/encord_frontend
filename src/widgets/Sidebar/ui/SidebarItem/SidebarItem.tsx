@@ -2,26 +2,27 @@ import { memo } from "react"
 import { SidebarItemType } from "../../model/types/types"
 import styles from "./SidebarItem.module.scss"
 import { AppLink } from "shared/ui/AppLink/AppLink"
-import { classNames } from "shared/lib/classNames/classNames"
 import { Label } from "shared/ui/Label/Label"
+import { classNames } from "shared/lib/classNames/classNames"
+import { useLocation } from "react-router-dom"
 
 interface SidebarItemProps {
     item: SidebarItemType
-    collapsed: boolean
     label?: string
 }
 
-export const SidebarItem = memo(({ item, collapsed, label }: SidebarItemProps) => {
+export const SidebarItem = memo(({ item, label }: SidebarItemProps) => {
+    const { pathname } = useLocation()
+
+    const isCurrent = pathname === item.path
     return (
         <AppLink
             to={item.path}
-            className={classNames(styles.container, {
-                [styles.collapsed]: collapsed,
-            })}
+            className={classNames(styles.container, { [styles.current]: isCurrent })}
         >
             <item.Icon className={styles.icon} />
             <span className={styles.link}>{item.text}</span>
-            {!!label && <Label value={label} />}
+            {!!label && label !== "0" && <Label value={label} />}
         </AppLink>
     )
 })
