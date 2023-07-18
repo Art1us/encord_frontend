@@ -1,5 +1,13 @@
 .container {
     height: var(--navbar-height);
     width: 100%;
-    border: 1px solid magenta;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
 }
