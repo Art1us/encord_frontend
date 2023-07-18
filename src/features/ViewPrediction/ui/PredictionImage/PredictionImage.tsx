@@ -1,33 +1,47 @@
 import { IPredictionData } from "pages/PredictionsPage"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import styles from "./PredictionImage.module.scss"
 import img from "../../const/img_1.jpg"
+import { colors } from "features/ViewPrediction/const/colors"
 
 export function PredictionImage({ predictions }: { predictions: IPredictionData[] }) {
     const [imageSizeCoefficient, setImageSizeCoefficient] = useState(1)
+    const [naturalSize, setNaturalSize] = useState({ width: 0, height: 0 })
 
     const imgRef = useRef<HTMLImageElement | null>(null)
 
-    function imageLoadHandler(e: Event) {
+    function caluclateCoefficient() {
         if (imgRef.current) {
-            const img = e.target as HTMLImageElement
-            const { width } = img
-            const { naturalWidth } = imgRef.current
+            const { width, naturalWidth, naturalHeight } = imgRef.current
             const coef = Number((width / naturalWidth).toFixed(3))
+            setNaturalSize({ width: naturalWidth, height: naturalHeight })
             setImageSizeCoefficient(coef)
         }
     }
+
+    useEffect(() => {
+        window.addEventListener("resize", caluclateCoefficient)
+        return () => window.removeEventListener("resize", caluclateCoefficient)
+    }, [])
+
     return (
         <div className={styles.container}>
-            {predictions.map(item => {
+            {predictions.map((item, index) => {
                 const { x1, x2, y1, y2 } = item.bbox
-                const width = Math.floor(Math.abs(x1 - x2) * imageSizeCoefficient)
-                const height = Math.floor(Math.abs(y1 - y2) * imageSizeCoefficient)
+
+                const limitedX2 = x2 > naturalSize.width ? naturalSize.width : x2
+                const limitedY2 = y2 > naturalSize.height ? naturalSize.height : y2
+
+                const width = Math.round(Math.abs(x1 - limitedX2) * imageSizeCoefficient)
+                const height = Math.round(Math.abs(y1 - limitedY2) * imageSizeCoefficient)
                 const top = y1 * imageSizeCoefficient
                 const left = x1 * imageSizeCoefficient
 
-                const style = {
-                    border: "1px solid red",
+                const { area, border } = colors[index]
+
+                const style: Styles = {
+                    border: `1px solid ${border}`,
+                    backgroundColor: area,
                     position: "absolute",
                     width,
                     height,
@@ -46,7 +60,13 @@ export function PredictionImage({ predictions }: { predictions: IPredictionData[
                     </div>
                 )
             })}
-            <img src={img} alt="" ref={imgRef} onLoad={imageLoadHandler} className={styles.img} />
+            <img
+                src={img}
+                alt=""
+                ref={imgRef}
+                onLoad={caluclateCoefficient}
+                className={styles.img}
+            />
         </div>
     )
 }
