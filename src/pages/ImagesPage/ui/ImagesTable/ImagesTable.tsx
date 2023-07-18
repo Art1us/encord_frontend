@@ -6,7 +6,7 @@ import { dummyData } from "../../const/dummyData"
 import { useState } from "react"
 import { ISortingState } from "../../model/types/types"
 import { defaultSorting } from "../../const/const"
-import { SortingIndicator } from "./SortingIndicator/SortingIndictator"
+import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
 
 export function ImagesTable() {
     const imagesData = dummyData // useSelector(getImages)
@@ -44,48 +44,46 @@ export function ImagesTable() {
     }
 
     return (
-        <div className={styles.wrapper}>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th onClick={nameSortHandler}>
-                            File name
-                            <SortingIndicator state={sorting.fileName} />
-                        </th>
-                        <th onClick={sizeSortHandler}>
-                            Size
-                            <SortingIndicator state={sorting.size} />
-                        </th>
-                        <th onClick={timeSortHandler}>
-                            Time
-                            <SortingIndicator state={sorting.time} />
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableData.map(item => {
-                        const { fileName, size, time, id } = item
+        <table className={styles.table}>
+            <thead>
+                <tr>
+                    <th onClick={nameSortHandler}>
+                        File name
+                        <SortingIndicator state={sorting.fileName} />
+                    </th>
+                    <th onClick={sizeSortHandler}>
+                        Size
+                        <SortingIndicator state={sorting.size} />
+                    </th>
+                    <th onClick={timeSortHandler}>
+                        Time
+                        <SortingIndicator state={sorting.time} />
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {tableData.map(item => {
+                    const { fileName, size, time, id } = item
 
-                        const hours = time.getHours()
-                        const minutes = time.getMinutes()
-                        const seconds = time.getSeconds()
+                    const hours = time.getHours()
+                    const minutes = time.getMinutes()
+                    const seconds = time.getSeconds()
 
-                        const kilobytes = size / 1024
+                    const kilobytes = size / 1024
 
-                        return (
-                            <tr key={item.id} className={styles.item}>
-                                <td>{fileName}</td>
-                                <td>{kilobytes.toFixed(2)} KB</td>
-                                <td>{`${hours}:${minutes}:${seconds}`}</td>
-                                <td>
-                                    <PredictImage id={id} />
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </div>
+                    return (
+                        <tr key={item.id} className={styles.item}>
+                            <td>{fileName}</td>
+                            <td>{kilobytes.toFixed(2)} KB</td>
+                            <td>{`${hours}:${minutes}:${seconds}`}</td>
+                            <td>
+                                <PredictImage id={id} />
+                            </td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
     )
 }

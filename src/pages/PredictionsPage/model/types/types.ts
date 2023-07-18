@@ -16,3 +16,9 @@ export interface IPredictionImage {
     timestamp: Date
     predictions: IPredictionData[]
 }
+
+export interface ISortingState {
+    title: "" | "asc" | "desc"
+    description: "" | "asc" | "desc"
+    timestamp: "" | "asc" | "desc"
+}
