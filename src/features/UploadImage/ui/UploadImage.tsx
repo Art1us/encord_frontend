@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "shared/ui/Button/Button"
+import { Button, ButtonColor, ButtonVariant } from "shared/ui/Button/Button"
 import { Modal } from "shared/ui/Modal"
 import { Filepond } from "./Filepond"
 import styles from "./UploadImage.module.scss"
@@ -16,7 +16,10 @@ export function UploadImage() {
     const dispatch = useDispatch()
 
     function saveClickHandler() {
-        if (!files.length) return
+        if (!files.length) {
+            Alert.warning("Nothing to save")
+            return
+        }
 
         const formattedImages = files.map(item => {
             return {
@@ -44,20 +47,23 @@ export function UploadImage() {
                 onClose={() => {
                     setIsOpen(false)
                 }}
+                className={styles.modal}
             >
-                <>
-                    <Filepond setFiles={setFiles} files={files} />
-                    <div className={styles.buttons}>
-                        <Button className={styles.button} onClick={saveClickHandler}>
-                            Save
-                        </Button>
-                        <Button className={styles.button} onClick={discardClickHandler}>
-                            Discard
-                        </Button>
-                    </div>
-                </>
+                <Filepond setFiles={setFiles} files={files} />
+                <div className={styles.buttons}>
+                    <Button className={styles.button} onClick={saveClickHandler}>
+                        Save
+                    </Button>
+                    <Button
+                        className={styles.button}
+                        onClick={discardClickHandler}
+                        color={ButtonColor.ATTENTION}
+                    >
+                        Discard
+                    </Button>
+                </div>
             </Modal>
-            <Button onClick={() => setIsOpen(true)}>Upload</Button>
+            <Button onClick={() => setIsOpen(true)}>Upload Images</Button>
         </>
     )
 }
