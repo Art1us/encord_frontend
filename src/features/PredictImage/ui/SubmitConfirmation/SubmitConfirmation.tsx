@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "shared/ui/Button/Button"
+import { Button, ButtonColor } from "shared/ui/Button/Button"
 import { Input } from "shared/ui/Input/Input"
 import { Modal } from "shared/ui/Modal"
 import { v4 as uuid } from "uuid"
@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux"
 import { predictionsPageActions } from "pages/PredictionsPage"
 import { IPredictionData } from "pages/PredictionsPage/model/types/types"
 import { Alert } from "shared/ui/CustomNotifications"
+import { Typography } from "shared/ui/Typography/Typography"
+import styles from "./SubmitConfirmation.module.scss"
 
 interface ISubmitConfirmationProps {
     isOpen: boolean
@@ -49,17 +51,26 @@ export function SubmitConfirmation(props: ISubmitConfirmationProps) {
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
+            <Typography size="xl" tag="h3" className={styles.title}>
+                Please fill up data
+            </Typography>
             <Input
+                placeholder="Image title"
                 value={predictionData.title}
                 onChange={title => setPredictionData(prev => ({ ...prev, title }))}
             />
             <Input
+                placeholder="Image description"
                 value={predictionData.description}
                 onChange={description => setPredictionData(prev => ({ ...prev, description }))}
             />
-            <Button onClick={submitClickHandler}>Submit</Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <div className={styles.buttons}>
+                <Button onClick={submitClickHandler}>Submit</Button>
+                <Button color={ButtonColor.ATTENTION} onClick={onClose}>
+                    Cancel
+                </Button>
+            </div>
         </Modal>
     )
 }

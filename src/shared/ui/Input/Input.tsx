@@ -7,8 +7,6 @@ type HtmlInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onC
 export enum InputType {
     TEXT = "text",
     NUMBER = "number",
-    EMAIL = "email",
-    PASSWORD = "password",
 }
 
 export interface InputProps extends HtmlInputProps {
@@ -24,7 +22,7 @@ export interface InputProps extends HtmlInputProps {
 
 export function Input(props: InputProps) {
     const {
-        type = "text",
+        type = InputType.TEXT,
         label,
         isRequired = false,
         className,
