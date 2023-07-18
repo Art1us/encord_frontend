@@ -26,7 +26,7 @@ export function UploadImage() {
                 id: uuid(),
                 fileName: item.file.name,
                 size: item.file.size,
-                time: new Date(),
+                timestamp: Date.now(),
             }
         })
         dispatch(imagesPageActions.addImages(formattedImages))

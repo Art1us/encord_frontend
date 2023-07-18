@@ -7,6 +7,8 @@ import { useState } from "react"
 import { ISortingState } from "../../model/types/types"
 import { defaultSorting } from "../../const/const"
 import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
+import { formatSize } from "shared/lib/formatSize/formatSize"
+import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
 
 export function ImagesTable() {
     const imagesData = dummyData // useSelector(getImages)
@@ -34,11 +36,11 @@ export function ImagesTable() {
     }
 
     function timeSortHandler() {
-        if (sorting.time === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b.time.getDate() - a.time.getDate())])
+        if (sorting.timestamp === "asc") {
+            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
             setSorting(() => ({ ...defaultSorting, time: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => b.time.getDate() - a.time.getDate())])
+            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
             setSorting(() => ({ ...defaultSorting, time: "asc" }))
         }
     }
@@ -57,26 +59,23 @@ export function ImagesTable() {
                     </th>
                     <th onClick={timeSortHandler}>
                         Time
-                        <SortingIndicator state={sorting.time} />
+                        <SortingIndicator state={sorting.timestamp} />
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 {tableData.map(item => {
-                    const { fileName, size, time, id } = item
+                    const { fileName, size, timestamp, id } = item
 
-                    const hours = time.getHours()
-                    const minutes = time.getMinutes()
-                    const seconds = time.getSeconds()
-
-                    const kilobytes = size / 1024
+                    const formattedTime = getTimeFromTimestamp(timestamp)
+                    const formattedSize = formatSize(size)
 
                     return (
                         <tr key={item.id} className={styles.item}>
                             <td>{fileName}</td>
-                            <td>{kilobytes.toFixed(2)} KB</td>
-                            <td>{`${hours}:${minutes}:${seconds}`}</td>
+                            <td>{formattedSize}</td>
+                            <td>{formattedTime}</td>
                             <td>
                                 <PredictImage id={id} />
                             </td>

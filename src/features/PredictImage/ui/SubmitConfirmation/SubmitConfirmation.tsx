@@ -35,7 +35,7 @@ export function SubmitConfirmation(props: ISubmitConfirmationProps) {
                 id: uuid(),
                 title: predictionData.title,
                 description: predictionData.description,
-                timestamp: new Date(),
+                timestamp: Date.now(),
                 predictions: fetchedPredictionsData.predictions as IPredictionData[],
             }
 

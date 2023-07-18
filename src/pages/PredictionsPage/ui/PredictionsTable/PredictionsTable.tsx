@@ -7,6 +7,7 @@ import { useState } from "react"
 import { dummyData } from "../../const/dummyData"
 import { defaultSorting } from "../../const/const"
 import { ISortingState } from "../../model/types/types"
+import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
 
 export function PredictionsTable() {
     const predictionsData = dummyData //useSelector(getPredictions)
@@ -25,14 +26,10 @@ export function PredictionsTable() {
 
     function timeSortHandler() {
         if (sorting.timestamp === "asc") {
-            setTableData(prev => [
-                ...prev.sort((a, b) => b.timestamp.getDate() - a.timestamp.getDate()),
-            ])
+            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
             setSorting(() => ({ ...defaultSorting, timestamp: "desc" }))
         } else {
-            setTableData(prev => [
-                ...prev.sort((a, b) => b.timestamp.getDate() - a.timestamp.getDate()),
-            ])
+            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
             setSorting(() => ({ ...defaultSorting, timestamp: "asc" }))
         }
     }
@@ -60,15 +57,13 @@ export function PredictionsTable() {
                 {tableData.map(item => {
                     const { title, description, timestamp, id, predictions } = item
 
-                    const hours = timestamp.getHours()
-                    const minutes = timestamp.getMinutes()
-                    const seconds = timestamp.getSeconds()
+                    const time = getTimeFromTimestamp(timestamp)
 
                     return (
                         <tr key={id} className={styles.item}>
                             <td>{title}</td>
                             <td>{description}</td>
-                            <td>{`${hours}:${minutes}:${seconds}`}</td>
+                            <td>{time}</td>
                             <td>
                                 <ViewPrediction predictions={predictions} />
                             </td>
