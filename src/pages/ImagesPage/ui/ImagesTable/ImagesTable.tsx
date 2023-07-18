@@ -3,11 +3,12 @@ import { getImages } from "../../model/selectors/imagesSelectors"
 import { useSelector } from "react-redux"
 import styles from "./ImagesTable.module.scss"
 import { useState, useEffect } from "react"
-import { ISortingState } from "../../model/types/types"
+import { ISortingState, IUploadedImage } from "../../model/types/types"
 import { defaultSorting } from "../../const/const"
 import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
 import { formatSize } from "shared/lib/formatSize/formatSize"
 import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
+import { deepCopy } from "shared/lib/deepCopy/deepCopy"
 
 export function ImagesTable() {
     const imagesData = useSelector(getImages)
@@ -20,31 +21,49 @@ export function ImagesTable() {
 
     function nameSortHandler() {
         if (sorting.fileName === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b.fileName.localeCompare(a.fileName))]) //reversed alph
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => b.fileName.localeCompare(a.fileName))
+            })
             setSorting(() => ({ ...defaultSorting, fileName: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => a.fileName.localeCompare(b.fileName))]) //alph
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => a.fileName.localeCompare(b.fileName))
+            })
             setSorting(() => ({ ...defaultSorting, fileName: "asc" }))
         }
     }
 
     function sizeSortHandler() {
         if (sorting.size === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b.size - a.size)])
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => b.size - a.size)
+            })
             setSorting(() => ({ ...defaultSorting, size: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => a.size - b.size)])
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => a.size - b.size)
+            })
             setSorting(() => ({ ...defaultSorting, size: "asc" }))
         }
     }
 
     function timeSortHandler() {
         if (sorting.timestamp === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
-            setSorting(() => ({ ...defaultSorting, time: "desc" }))
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => b.timestamp - a.timestamp)
+            })
+            setSorting(() => ({ ...defaultSorting, timestamp: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
-            setSorting(() => ({ ...defaultSorting, time: "asc" }))
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IUploadedImage[]
+                return arr.sort((a, b) => a.timestamp - b.timestamp)
+            })
+            setSorting(() => ({ ...defaultSorting, timestamp: "asc" }))
         }
     }
 

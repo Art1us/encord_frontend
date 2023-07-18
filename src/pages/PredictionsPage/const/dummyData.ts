@@ -34,8 +34,8 @@ const predictions = [
 ]
 
 export const dummyData: IPredictionImage[] = [
-    { id: "1", title: "aaa", description: "aaa", timestamp: new Date(), predictions },
-    { id: "2", title: "bbb", description: "aaa", timestamp: new Date(), predictions },
-    { id: "3", title: "abbbaa", description: "assaa", timestamp: new Date(), predictions },
-    { id: "4", title: "ccc", description: "aaa", timestamp: new Date(), predictions },
+    { id: "1", title: "aaa", description: "aaa", timestamp: Date.now(), predictions },
+    { id: "2", title: "bbb", description: "aaa", timestamp: Date.now(), predictions },
+    { id: "3", title: "abbbaa", description: "assaa", timestamp: Date.now(), predictions },
+    { id: "4", title: "ccc", description: "aaa", timestamp: Date.now(), predictions },
 ]

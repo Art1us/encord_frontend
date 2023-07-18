@@ -56,7 +56,7 @@ export function Confirm(message: string): Promise<boolean> {
 
     disableKeyboard.add()
 
-    return new Promise((res, rej) => {
+    return new Promise(res => {
         confirmBtnEl.onclick = () => {
             cleanup()
             res(true)

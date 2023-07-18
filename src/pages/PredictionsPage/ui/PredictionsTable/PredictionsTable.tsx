@@ -5,8 +5,9 @@ import { ViewPrediction } from "features/ViewPrediction"
 import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
 import { useState, useEffect } from "react"
 import { defaultSorting } from "../../const/const"
-import { ISortingState } from "../../model/types/types"
+import { IPredictionImage, ISortingState } from "../../model/types/types"
 import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
+import { deepCopy } from "shared/lib/deepCopy/deepCopy"
 
 export function PredictionsTable() {
     const predictionsData = useSelector(getPredictions)
@@ -19,20 +20,32 @@ export function PredictionsTable() {
 
     function textSortHandler(key: "title" | "description") {
         if (sorting[key] === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b[key].localeCompare(a[key]))]) //reversed alph
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IPredictionImage[]
+                return arr.sort((a, b) => b[key].localeCompare(a[key]))
+            })
             setSorting(() => ({ ...defaultSorting, [key]: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => a[key].localeCompare(b[key]))]) //alph
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IPredictionImage[]
+                return arr.sort((a, b) => a[key].localeCompare(b[key]))
+            })
             setSorting(() => ({ ...defaultSorting, [key]: "asc" }))
         }
     }
 
     function timeSortHandler() {
         if (sorting.timestamp === "asc") {
-            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IPredictionImage[]
+                return arr.sort((a, b) => b.timestamp - a.timestamp)
+            })
             setSorting(() => ({ ...defaultSorting, timestamp: "desc" }))
         } else {
-            setTableData(prev => [...prev.sort((a, b) => b.timestamp - a.timestamp)])
+            setTableData(prev => {
+                const arr = deepCopy(prev) as IPredictionImage[]
+                return arr.sort((a, b) => a.timestamp - b.timestamp)
+            })
             setSorting(() => ({ ...defaultSorting, timestamp: "asc" }))
         }
     }
