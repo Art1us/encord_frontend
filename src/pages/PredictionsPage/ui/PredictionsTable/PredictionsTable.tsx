@@ -3,16 +3,19 @@ import { useSelector } from "react-redux"
 import styles from "./PredictionsTable.module.scss"
 import { ViewPrediction } from "features/ViewPrediction"
 import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
-import { useState } from "react"
-import { dummyData } from "../../const/dummyData"
+import { useState, useEffect } from "react"
 import { defaultSorting } from "../../const/const"
 import { ISortingState } from "../../model/types/types"
 import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
 
 export function PredictionsTable() {
-    const predictionsData = dummyData //useSelector(getPredictions)
+    const predictionsData = useSelector(getPredictions)
     const [tableData, setTableData] = useState(() => predictionsData)
     const [sorting, setSorting] = useState<ISortingState>(defaultSorting)
+
+    useEffect(() => {
+        setTableData(predictionsData)
+    }, [predictionsData])
 
     function textSortHandler(key: "title" | "description") {
         if (sorting[key] === "asc") {
@@ -33,6 +36,8 @@ export function PredictionsTable() {
             setSorting(() => ({ ...defaultSorting, timestamp: "asc" }))
         }
     }
+
+    if (tableData.length === 0) return null
 
     return (
         <table className={styles.table}>

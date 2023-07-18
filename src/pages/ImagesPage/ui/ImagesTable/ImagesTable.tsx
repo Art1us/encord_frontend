@@ -2,8 +2,7 @@ import { PredictImage } from "features/PredictImage"
 import { getImages } from "../../model/selectors/imagesSelectors"
 import { useSelector } from "react-redux"
 import styles from "./ImagesTable.module.scss"
-import { dummyData } from "../../const/dummyData"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ISortingState } from "../../model/types/types"
 import { defaultSorting } from "../../const/const"
 import { SortingIndicator } from "shared/ui/SortingIndicator/SortingIndictator"
@@ -11,9 +10,13 @@ import { formatSize } from "shared/lib/formatSize/formatSize"
 import { getTimeFromTimestamp } from "shared/lib/getTimeFromTimestamp/getTimeFromTimestamp"
 
 export function ImagesTable() {
-    const imagesData = dummyData // useSelector(getImages)
+    const imagesData = useSelector(getImages)
     const [tableData, setTableData] = useState(() => imagesData)
     const [sorting, setSorting] = useState<ISortingState>(defaultSorting)
+
+    useEffect(() => {
+        setTableData(imagesData)
+    }, [imagesData])
 
     function nameSortHandler() {
         if (sorting.fileName === "asc") {
@@ -44,6 +47,8 @@ export function ImagesTable() {
             setSorting(() => ({ ...defaultSorting, time: "asc" }))
         }
     }
+
+    if (tableData.length === 0) return null
 
     return (
         <table className={styles.table}>

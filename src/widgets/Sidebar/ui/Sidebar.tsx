@@ -7,7 +7,6 @@ import { getUnviewedPredictions } from "../model/selectors/sidebarSelectors"
 
 export function Sidebar() {
     const unviewedPredictions = useSelector(getUnviewedPredictions)
-    console.log(unviewedPredictions)
 
     const itemsList = useMemo(
         () =>
