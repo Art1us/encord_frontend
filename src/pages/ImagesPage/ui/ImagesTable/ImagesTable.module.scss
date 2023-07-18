@@ -1,10 +1,41 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    overflow: hidden;
+    margin: 10px 0;
 
-.item {
-    display: flex;
-    justify-content: space-between;
+    thead {
+        position: sticky;
+        z-index: 100;
+
+        tr {
+            background: lightgray;
+
+            th {
+                padding: 3px;
+                text-transform: capitalize;
+                cursor: pointer;
+
+                &:last-child {
+                    cursor: auto;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            background: white;
+
+            &:nth-child(2n) {
+                background: whitesmoke;
+            }
+
+            td {
+                padding: 3px;
+                border: 1px solid lightgray;
+            }
+        }
+    }
 }
